@@ -1,11 +1,7 @@
 import React from "react";
 import Task from "./task";
 import { Container, Draggable } from "react-smooth-dnd";
-export default function Column({ column }) {
-  const onCardDrop = (dropResult) => {
-    console.log("card ", dropResult);
-  };
-
+export default function Column({ column, onCardDrop }) {
   return (
     <div className="scrool-bar-custom overflow-y-auto max-h-[calc(100vh-100px)] mx-[20px] bg-[#ebecf0] w-[272px] px-[8px] rounded-[4px] first:ml-0 ">
       <p className="py-[8px] pl-[8px] text-[#208ac7] text-[14px] font-semibold column-drag-handle">
@@ -22,12 +18,12 @@ export default function Column({ column }) {
           // onDragLeave={() => {
           //   console.log("drag leave:", column.id);
           // }}
+          // onDropReady={(p) => console.log("Drop ready: ", p)}
           groupName="col"
-          onDrop={onCardDrop}
+          onDrop={(dropResult) => onCardDrop(dropResult, column.id)}
           getChildPayload={(index) => column.cards[index]}
           dragClass="card-ghost"
           dropClass="card-ghost-drop"
-          onDropReady={(p) => console.log("Drop ready: ", p)}
           dropPlaceholder={{
             animationDuration: 150,
             showOnTop: true,
